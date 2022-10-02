@@ -1,0 +1,4 @@
+framework = "react"
+
+[dev]
+port = 8080
