@@ -1,12 +1,15 @@
 {
-  "name": "sajin",
-  "version": "0.1.2",
+  "name": "sajines",
+  "version": "0.1.0",
   "scripts": {
     "start": "bun dev"
   },
   "dependencies": {
+    "firebase": "^9.10.0",
+    "jose": "^4.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.2",
     "react-router-dom": "^6.4.1",
     "recoil": "^0.7.5",
     "styled-components": "^5.3.6",

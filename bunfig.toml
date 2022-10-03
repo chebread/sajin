@@ -1,4 +1,5 @@
-framework = "react"
-
 [dev]
 port = 8080
+
+[debug]
+editor = "code"
