@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom';
-import Home from 'routes/Home/Home';
+import Home from 'routes/Home';
 import NotFoundPage from 'routes/NotFoundPage';
 
 const Router = () => {

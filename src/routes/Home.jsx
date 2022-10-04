@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
+import { storage, ref, uploadBytes } from 'components/storage';
 
 const Frame = styled.div`
   height: 200px;
@@ -8,20 +10,22 @@ const Frame = styled.div`
   background-color: gray;
 `;
 const Home = () => {
-  const [attachment, setAttachment] = useState();
-
+  const [fileName, setFileName] = useState('');
+  console.log('🚀 ~ file: Home.jsx ~ line 14 ~ Home ~ fileName', fileName);
+  const filePush = f => {
+    const refName = uuidv4().replace(/-/g, '');
+    const storageRef = ref(storage, `${refName}`);
+    const metadata = {
+      contentType: 'image/avif', // avif로 파일 변환
+    };
+    uploadBytes(storageRef, f, metadata).then(snapshot => {
+      const fileName = storageRef.name;
+      setFileName(fileName);
+    });
+  };
   const onDrop = acceptedFiles => {
     const file = acceptedFiles[0];
-    console.log(file);
-    const reader = new FileReader();
-    reader.onloadend = data => {
-      const {
-        currentTarget: { result },
-      } = data;
-      setAttachment(result);
-      console.log(data);
-    };
-    reader.readAsDataURL(file);
+    filePush(file);
   };
 
   const accept = {
@@ -51,7 +55,6 @@ const Home = () => {
           </section>
         )}
       </Dropzone>
-      <img src={attachment} width={300} height={300} />
     </div>
   );
 };
