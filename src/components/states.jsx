@@ -5,4 +5,9 @@ const dbRefIdState = atom({
   default: null,
 });
 
-export { dbRefIdState };
+const isFileDeletedState = atom({
+  key: 'isFileDeletedState',
+  default: false,
+});
+
+export { dbRefIdState, isFileDeletedState };
