@@ -18,9 +18,7 @@ const Home = () => {
   const onDrop = files => {
     // 여기 에러 확인 로직 있어야함
     const file = files[0];
-    const dbRefId = pushFile({ file });
-    console.log('db ref id ' + dbRefId);
-    setDbRefId(dbRefId);
+    pushFile({ file, setDbRefId });
     setIsFile(true);
   };
   const accept = {
