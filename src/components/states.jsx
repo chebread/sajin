@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const dbRefIdState = atom({
   key: 'dbRefIdState',
-  default: '',
+  default: null,
 });
 
 export { dbRefIdState };

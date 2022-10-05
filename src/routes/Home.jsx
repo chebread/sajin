@@ -4,11 +4,17 @@ import pushFile from 'components/pushFile';
 import styled from 'styled-components';
 import Viewer from 'components/Viewer';
 import { dbRefIdState } from 'components/states';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
+import { redirect } from 'react-router-dom';
 
 const Home = () => {
-  const [dbRefId, setDbRefId] = useRecoilState(dbRefIdState); // (0) why error? => 항시 컴포넌트 내에서 선언해야 함
-  console.log(dbRefId); // ok
+  const setDbRefId = useSetRecoilState(dbRefIdState); // (0) why error? => 항시 컴포넌트 내에서 선언해야 함
+
+  // useEffect(() => {
+  //   if (dbRefId != null) {
+  //     redirect(`i/${}`)
+  //   }
+  // }, [dbRefId]);
   const onDrop = files => {
     // 여기 에러 확인 로직 있어야함
     const file = files[0];
@@ -45,11 +51,10 @@ const Home = () => {
     </div>
   );
 };
-
 const Frame = styled.div`
   height: 200px;
   width: 200px;
-  background-color: gray;
+  background-color: lightgray;
 `;
 
 export default Home;
