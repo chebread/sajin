@@ -3,7 +3,6 @@ import { ref, storage, deleteObject } from 'components/storage';
 import loadFile from './loadFile';
 
 const deleteFile = ({ fileId }) => {
-  // const [filename, setFilename] = useState('');
   const fileDb = loadFile({ fileId });
   fileDb.then(async data => {
     const filename = data.filename;

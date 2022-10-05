@@ -1,22 +1,22 @@
 import deleteFile from 'components/deleteFile';
 import loadFile from 'components/loadFile';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { isFileDeletedState } from 'components/states';
+import { useParams, Navigate } from 'react-router-dom';
 
 const Viewer = () => {
   const params = useParams();
   const paramsId = params.id; // docRef.id
   const [fileUrl, setFileUrl] = useState('');
   const [notLoaded, setNotLoaded] = useState(false);
-  const [isFileDeleted, setIsFileDeleted] = useRecoilState(isFileDeletedState);
+  const [isFileDeleted, setIsFileDeleted] = useState(false);
 
   const onClick = e => {
     e.preventDefault();
     // firestore id
     // storage id
-    deleteFile({ fileId: paramsId, setIsFileDeleted });
+    deleteFile({ fileId: paramsId });
+    // deleted 시 바로 home 으로 리다이렉트하기
+    setIsFileDeleted(true);
   };
   useEffect(() => {
     const fileDb = loadFile({ fileId: paramsId }); // Promise
@@ -27,7 +27,7 @@ const Viewer = () => {
         setFileUrl(fileUrl);
       })
       .catch(err => {
-        console.log('Error!', err);
+        // console.log('Error!', err);
         setNotLoaded(true);
       });
   }, []);
@@ -43,7 +43,7 @@ const Viewer = () => {
               <img src={fileUrl} />
             </div>
           ) : (
-            <h1>Deleted!</h1>
+            <Navigate to="/" /> // redirection
           )
         ) : (
           <h1>Blank</h1>
