@@ -17,14 +17,15 @@ const Viewer = () => {
   const thisUrl = location.href;
 
   const onClickDelete = e => {
+    // 알림 발생하기
     e.preventDefault();
     // firestore id
     // storage id
     deleteFile({ fileId: fileRefId });
-    // deleted 시 바로 home 으로 리다이렉트하기
     setIsFileDeleted(true);
   };
   const onClickCopy = () => {
+    // 알림 발생하기
     console.log('on click');
   };
   useEffect(() => {

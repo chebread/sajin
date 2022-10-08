@@ -8,7 +8,7 @@ import UploadingFile from 'components/UploadingFile';
 
 const Home = () => {
   // -- test code!!! //
-  const [isFile, setIsFile] = useState(true); // original: false
+  const [isFile, setIsFile] = useState(false); // original: false
   const [dbRefId, setDbRefId] = useRecoilState(dbRefIdState); // 이것은 firestore을 접근할 수 있는 id임
 
   const onDrop = files => {
