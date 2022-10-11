@@ -1,8 +1,16 @@
+import ErrorTemplate from 'components/ErrorTemplate';
+import SvgError from 'icons/SvgError';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+
 const NotFoundPage = () => {
+  useEffect(() => {
+    toast.error('This page cannot be found');
+  }, []);
   return (
-    <div>
-      <h1>404</h1>
-    </div>
+    <ErrorTemplate>
+      <SvgError />
+    </ErrorTemplate>
   );
 };
 

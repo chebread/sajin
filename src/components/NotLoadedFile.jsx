@@ -1,9 +1,16 @@
+import SvgXMark from 'icons/SvgXMark';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import ErrorTemplate from './ErrorTemplate';
+
 const NotLoadedFile = () => {
+  useEffect(() => {
+    toast.error('This file cannot be loaded');
+  }, []);
   return (
-    <div>
-      <h1>Not Loaded</h1>
-      <p>로드 실패</p>
-    </div>
+    <ErrorTemplate>
+      <SvgXMark />
+    </ErrorTemplate>
   );
 };
 

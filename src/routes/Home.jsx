@@ -1,42 +1,53 @@
 import { useState } from 'react';
 import UploadFile from 'components/UploadFile';
-import UploadedFile from 'components/UploadedFile';
 import pushFile from 'components/pushFile';
-import { useRecoilState } from 'recoil';
-import { dbRefIdState } from 'components/states';
 import UploadingFile from 'components/UploadingFile';
+import { Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import styled from 'styled-components';
 
 const Home = () => {
-  // -- test code!!! //
-  const [isFile, setIsFile] = useState(false); // original: false
-  const [dbRefId, setDbRefId] = useRecoilState(dbRefIdState); // 이것은 firestore을 접근할 수 있는 id임
+  const [isFile, setIsFile] = useState(false);
+  const [fileRefId, setFileRefId] = useState(''); // 이것은 firestore을 접근할 수 있는 id임
 
   const onDrop = files => {
     // 여기 에러 확인 로직 있어야함
     const file = files[0];
-    const dbRefId = pushFile({ file }); // pushFile은 dbRefId를 반환함
-    dbRefId.then(id => {
-      // console.log('data ' + id);
-      setDbRefId(id); // 이것이 storage id임
-    });
-    setIsFile(true);
+    if (file === undefined) {
+      toast.error('This file cannot be uploaded');
+      return;
+    } else {
+      setIsFile(true);
+      const fileRefId = pushFile({ file }); // pushFile은 사용자가 제공한 file의 firesotre의 id를 반환함
+      fileRefId.then(id => {
+        // 파일이 업로드 될때까지 기다린후 비동기적으로 값을 도출함
+        // console.log('data ' + id);
+        setFileRefId(id); // 이것이 storage id임
+        toast.success('File has uploaded');
+      });
+    }
   };
 
   return (
-    <div>
+    <FullScreen>
       {
         !isFile ? (
-          <div>
-            <h1>Home</h1>
-            <UploadFile onDrop={onDrop} />
-          </div>
-        ) : dbRefId === null ? (
+          <UploadFile onDrop={onDrop} />
+        ) : fileRefId === '' ? (
           <UploadingFile />
         ) : (
-          <UploadedFile imageId={dbRefId} />
+          <Navigate to={`i?id=${fileRefId}`} />
         ) // 로드 완료
       }
-    </div>
+    </FullScreen>
   );
 };
+const FullScreen = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+`;
+
 export default Home;
