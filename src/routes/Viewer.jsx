@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import loadFile from 'components/loadFile';
 import NotLoadedFile from 'components/NotLoadedFile';
@@ -21,7 +21,7 @@ const Viewer = () => {
   const [fileUrl, setFileUrl] = useState('');
   const [notLoaded, setNotLoaded] = useState(false);
   const [isFileDeleted, setIsFileDeleted] = useState(false);
-  const thisUrl = location.href;
+  const thisUrl = window.location.href;
 
   useEffect(() => {
     const getFileUrl = async () => {
