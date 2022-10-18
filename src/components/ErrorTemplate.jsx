@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 const ErrorTemplate = ({ children }) => {
   const navigate = useNavigate();
-  const onClickRedirect = () => navigate('/');
+  const onClickRedirect = () => {
+    navigate('/');
+  };
 
   return (
     <FullScreen>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, Navigate, useNavigate } from 'react-router-dom';
 import loadFile from 'components/loadFile';
 import NotLoadedFile from 'components/NotLoadedFile';
@@ -16,43 +16,30 @@ const Viewer = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const fileRefId = searchParams.get('id'); // ?id=
-  const name = searchParams.get('name'); // &name=
+  // const name = searchParams.get('name'); // &name=
   const isParams = fileRefId === null || fileRefId === '' ? false : true; // blank value는 ?=로 접근될때 발생됨
   const [fileUrl, setFileUrl] = useState('');
   const [notLoaded, setNotLoaded] = useState(false);
   const [isFileDeleted, setIsFileDeleted] = useState(false);
   const thisUrl = location.href;
 
-  const onClickDelete = () => {
-    // 알림 발생하기
-    // firestore id
-    // storage id
-    deleteFile({ fileId: fileRefId });
+  useEffect(() => {
+    const getFileUrl = async () => {
+      const fileDb = await loadFile({ fileId: fileRefId });
+      const fileUrl = fileDb.url;
+      setFileUrl(fileUrl);
+    };
+    getFileUrl().catch(err => {
+      setNotLoaded(true); // Error (찾을 수 없는 파일...)일때 NotLoadedFile 뜨게 함
+    });
+  }, []);
+
+  const onClickDelete = async () => {
+    await deleteFile({ fileId: fileRefId });
     setIsFileDeleted(true);
-    // 삭제 알림 요청하기
     toast.success('This file has been deleted');
   };
-  // const onClickCopy = () => {
-  //   // 알림 발생하기
-  //   toast.success('Copied link to this file');
-  // };
   const onClickRedirect = () => navigate('/');
-
-  useEffect(() => {
-    const fileDb = loadFile({ fileId: fileRefId }); // Promise
-    // data가 null 일때 처리하기
-    fileDb
-      .then(data => {
-        console.log(data, fileDb, fileRefId);
-        const fileUrl = data.url;
-        setFileUrl(fileUrl);
-      })
-      .catch(err => {
-        console.log(err);
-        // console.log('Error!', err);
-        setNotLoaded(true);
-      });
-  }, []);
 
   return (
     // try..catch 로직 이전에서는 모두 blank 화면이 출력되며, try...catch 로직 실행 이후 로드 실패 혹은 viewer 화면이 출려된다

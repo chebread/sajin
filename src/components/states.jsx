@@ -1,3 +1,7 @@
 import { atom } from 'recoil';
 
-export {};
+const errorCodeState = atom({
+  key: 'errorState',
+  default: null,
+});
+export { errorCodeState };

@@ -1,21 +1,16 @@
 import { db, doc, deleteDoc } from 'components/firestore';
-import { ref, storage, deleteObject } from 'components/storage';
-import loadFile from './loadFile';
+import { deleteObject } from 'components/storage';
+import getFileRef from 'components/getFileRef';
 
-const deleteFile = ({ fileId }) => {
-  const fileDb = loadFile({ fileId });
-  fileDb.then(async data => {
-    const filename = data.filename;
-    // 오류 로직 필요
-    // 이미지 파일 삭제
-    const fileRef = ref(storage, filename);
-    await deleteObject(fileRef)
-      .then(() => {})
-      .catch(error => {});
-    // 문서 참조 데이터 삭제
-    // 오류 로직 필요
-    deleteDoc(doc(db, 'images', fileId));
-  });
+const deleteFile = async ({ fileId }) => {
+  getFileRef({ fileId }).then(fileRef => {
+    Promise.all([
+      // storage에 있는 파일 삭제
+      deleteObject(fileRef),
+      // db에 있는 파일 삭제
+      deleteDoc(doc(db, 'images', fileId)),
+    ]);
+  }); // storage의 그 자체의 파일 참조 아이디
 };
 
 export default deleteFile;
