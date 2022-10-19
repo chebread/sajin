@@ -34,7 +34,7 @@ const Home = () => {
         }, 500);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         // 서버 에러시 503으로 리다이렉션함 (에러로 인해 파일은 서버에 로드하지 않음)
         setIsError(true);
       });

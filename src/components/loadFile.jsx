@@ -7,7 +7,7 @@ const loadFile = async ({ fileId }) => {
     const data = docSnap.data(); // doc의 data들
     return data;
   } else {
-    console.log(docSnap, fileId);
+    // console.log(docSnap, fileId);
     return null;
   }
 };
