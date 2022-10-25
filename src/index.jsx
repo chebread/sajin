@@ -4,17 +4,43 @@ import GlobalStyles from 'GlobalStyles';
 import App from 'App';
 import { Toaster } from 'react-hot-toast';
 import { RecoilRoot } from 'recoil';
+import { HelmetProvider } from 'react-helmet-async';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <RecoilRoot>
-    <Toaster
-      position="bottom-center"
-      toastOptions={{
-        duration: 1500,
-      }}
-    />
-    <GlobalStyles />
-    <App />
-  </RecoilRoot>
-);
+const nodeMode = process.env.NODE_ENV;
+const targetDom = document.getElementById('root');
+
+if (nodeMode === 'production') {
+  const hydrateRoot = ReactDOM.hydrateRoot(targetDom);
+  loadableReady(() => {
+    hydrateRoot.render(
+      <HelmetProvider>
+        <RecoilRoot>
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              duration: 1500,
+            }}
+          />
+          <GlobalStyles />
+          <App />
+        </RecoilRoot>
+      </HelmetProvider>
+    );
+  });
+} else {
+  const root = ReactDOM.createRoot(targetDom);
+  root.render(
+    <HelmetProvider>
+      <RecoilRoot>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            duration: 1500,
+          }}
+        />
+        <GlobalStyles />
+        <App />
+      </RecoilRoot>
+    </HelmetProvider>
+  );
+}
