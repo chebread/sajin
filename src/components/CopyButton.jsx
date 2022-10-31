@@ -1,6 +1,6 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Button from 'components/Button';
 import toast from 'react-hot-toast';
+import ViewerRoundButton from 'components/ViewerRoundButton';
 
 const CopyButton = ({ children, url }) => {
   const onCopy = () => {
@@ -8,7 +8,7 @@ const CopyButton = ({ children, url }) => {
   };
   return (
     <CopyToClipboard text={url} onCopy={onCopy}>
-      <Button>{children}</Button>
+      <ViewerRoundButton>{children}</ViewerRoundButton>
     </CopyToClipboard>
   );
 };

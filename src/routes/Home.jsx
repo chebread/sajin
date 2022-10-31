@@ -34,33 +34,22 @@ const Home = () => {
         }, 500);
       })
       .catch(err => {
-        // console.log(err);
-        // 서버 에러시 503으로 리다이렉션함 (에러로 인해 파일은 서버에 로드하지 않음)
         setIsError(true);
       });
   };
-  return (
-    <FullScreen>
-      {!isFile ? (
-        <UploadFile onDrop={onDrop} />
-      ) : fileRefId === '' ? (
-        !isError ? (
-          <UploadingFile />
-        ) : (
-          <Navigate to="503" />
-        )
-      ) : (
-        <Navigate to={`i?id=${fileRefId}`} /> // 로드 완료
-      )}
-    </FullScreen>
+  return !isFile ? (
+    <>
+      <UploadFile onDrop={onDrop} />
+    </>
+  ) : fileRefId === '' ? (
+    !isError ? (
+      <UploadingFile />
+    ) : (
+      <Navigate to="503" />
+    )
+  ) : (
+    <Navigate to={`i?id=${fileRefId}`} /> // 로드 완료
   );
 };
-const FullScreen = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-`;
 
 export default Home;

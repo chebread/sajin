@@ -1,7 +1,12 @@
 import { atom } from 'recoil';
 
-const errorCodeState = atom({
-  key: 'errorState',
-  default: null,
+const isGoHomeState = atom({
+  key: 'isGoHomeState',
+  default: false,
 });
-export { errorCodeState };
+const isGoBackState = atom({
+  key: 'isGoBackState',
+  default: false,
+});
+
+export { isGoHomeState, isGoBackState };

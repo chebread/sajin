@@ -1,20 +1,21 @@
 import SvgHome from 'icons/SvgHome';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import FixedFooterButton from './buttons/FixedFooterButton';
 
 const ErrorTemplate = ({ children }) => {
   const navigate = useNavigate();
+
   const onClickRedirect = () => {
     navigate('/');
   };
-
   return (
     <FullScreen>
       <SvgWrapper>{children}</SvgWrapper>
       <Blank />
-      <Button onClick={onClickRedirect}>
-        <SvgHome height={45} width={45} />
-      </Button>
+      <FixedFooterButton onClick={onClickRedirect}>
+        <SvgHome />
+      </FixedFooterButton>
     </FullScreen>
   );
 };
@@ -35,6 +36,9 @@ const SvgWrapper = styled.div`
 const Blank = styled.div`
   padding: 5px;
 `;
+const FloatingButton = styled.div`
+  z-index: 1;
+`;
 const Button = styled.button`
   all: unset;
   display: flex;
@@ -43,7 +47,7 @@ const Button = styled.button`
   align-items: center;
   width: 105px;
   height: 65px;
-  border-radius: 20px;
+  border-radius: 22.5px;
   background-color: #e9ecef;
 `;
 export default ErrorTemplate;

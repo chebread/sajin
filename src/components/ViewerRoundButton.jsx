@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const ViewerRoundButton = styled.button`
   all: unset;
   display: flex;
   justify-content: center;
@@ -8,9 +8,9 @@ const Button = styled.button`
   height: 65px;
   width: 65px;
   border-radius: 50%;
-  margin: 15px;
   background-color: #212529;
   opacity: 0.8;
+  margin: 15px;
   svg {
     height: 42.5px;
     width: 42.5px;
@@ -18,4 +18,4 @@ const Button = styled.button`
   }
 `;
 
-export default Button;
+export default ViewerRoundButton;

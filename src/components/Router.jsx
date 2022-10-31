@@ -20,7 +20,11 @@ const Router = () => {
       </>
     )
   );
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router}></RouterProvider>
+    </>
+  );
 };
 
 export default Router;
