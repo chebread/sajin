@@ -16,6 +16,7 @@ import SvgInfo from 'icons/SvgInfo';
 import SvgDoubleDownArrow from 'icons/SvgDoubleDownArrow';
 import FixedFooterButton from 'components/FixedFooterButton';
 import ImageScreen from 'components/ImageScreen';
+import SvgIcon from 'icons/SvgIcon';
 
 const Viewer = () => {
   const [searchParams] = useSearchParams();

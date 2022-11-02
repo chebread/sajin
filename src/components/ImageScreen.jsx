@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ImageScreen = ({ src }) => {
-  console.log(src);
   return (
     <ImageWrapper>
       <Image src={src} />
