@@ -1,6 +1,6 @@
-import { db, doc, deleteDoc } from 'components/firestore';
-import { deleteObject } from 'components/storage';
-import getFileRef from 'components/getFileRef';
+import { db, doc, deleteDoc } from 'lib/firestore';
+import { deleteObject } from 'lib/storage';
+import getFileRef from 'lib/getFileRef';
 
 const deleteFile = async ({ fileId }) => {
   getFileRef({ fileId }).then(fileRef => {

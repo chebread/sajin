@@ -1,10 +1,15 @@
+import FixedFooterButton from 'components/FixedFooterButton';
+import CenterScreen from 'components/CenterScreen';
+import HelmetTemplate from 'components/HelmetTemplate';
+import SvgHome from 'icons/SvgHome';
 import SvgXMark from 'icons/SvgXMark';
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
-import ErrorTemplate from 'components/ErrorTemplate';
-import HelmetTemplate from 'components/HelmetTemplate';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NotLoadedFile = () => {
+  const navigate = useNavigate();
   const seoContent = useRef({
     title: 'This file cannot be loaded',
     description: `This file is not uploaded to Sajin`,
@@ -13,17 +18,28 @@ const NotLoadedFile = () => {
   useEffect(() => {
     toast.error('This file cannot be loaded');
   }, []);
+  const onClickRedirect = () => navigate('/');
   return (
     <>
       <HelmetTemplate
         title={seoContent.current.title}
         desc={seoContent.current.desc}
       />
-      <ErrorTemplate>
-        <SvgXMark />
-      </ErrorTemplate>
+      <CenterScreen position="absolute">
+        <SvgWrapper>
+          <SvgXMark />
+        </SvgWrapper>
+      </CenterScreen>
+      <FixedFooterButton onClick={onClickRedirect}>
+        <SvgHome />
+      </FixedFooterButton>
     </>
   );
 };
-
+const SvgWrapper = styled.div`
+  svg {
+    height: 200px;
+    width: 200px;
+  }
+`;
 export default NotLoadedFile;

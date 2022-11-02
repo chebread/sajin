@@ -1,22 +1,34 @@
+import FixedFooterButton from 'components/FixedFooterButton';
+import CenterScreen from 'components/CenterScreen';
+import SvgBigXMark from 'icons/SvgBoldXMark';
 import SvgLoading from 'icons/SvgLoading';
 import styled from 'styled-components';
 
 const UploadingFile = () => {
+  const onClickCancle = () => {
+    // 파일 올리기 취소하기
+    // 만약 파일에 대한 참조나 파일 그자체에 대해 참조가 생성되었다면 올리기 취소 기능 활성화 하기
+  };
   return (
-    <FullScreen>
-      <Loading>
-        <SvgLoading height={200} width={200} />
-      </Loading>
-    </FullScreen>
+    <>
+      <CenterScreen position="absolute">
+        <Loading>
+          <SvgWrapper>
+            <SvgLoading />
+          </SvgWrapper>
+        </Loading>
+      </CenterScreen>
+      <FixedFooterButton onClick={onClickCancle}>
+        <SvgBigXMark />
+      </FixedFooterButton>
+    </>
   );
 };
-const FullScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+const SvgWrapper = styled.div`
+  svg {
+    height: 200px;
+    width: 200px;
+  }
 `;
 const Loading = styled.div`
   height: 200px;
@@ -48,5 +60,4 @@ const Loading = styled.div`
     }
   }
 `;
-
 export default UploadingFile;

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import getThisUrl from './getThisUrl';
+import getThisUrl from '../lib/getThisUrl';
 
 const HelmetTemplate = ({ title, desc }) => {
   // (1): thumnail 추가하기

@@ -1,4 +1,4 @@
-import firebase from 'components/firebase';
+import firebase from 'lib/firebase';
 import {
   getStorage,
   ref,

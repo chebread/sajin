@@ -1,5 +1,5 @@
 import loadFile from './loadFile';
-import { ref, storage } from 'components/storage';
+import { ref, storage } from 'lib/storage';
 
 const getFileRef = async ({ fileId }) => {
   const fileDb = await loadFile({ fileId });

@@ -1,25 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, Navigate } from 'react-router-dom';
-import loadFile from 'components/loadFile';
 import NotLoadedFile from 'routes/NotLoadedFile';
-import NotFoundPage from './NotFoundPage';
-import deleteFile from 'components/deleteFile';
+import NotFoundPage from 'routes/NotFoundPage';
 import CopyButton from 'components/CopyButton';
 import ViewerRoundButton from 'components/ViewerRoundButton';
+import HelmetTemplate from 'components/HelmetTemplate';
+import getThisUrl from 'lib/getThisUrl';
+import deleteFile from 'lib/deleteFile';
+import loadFile from 'lib/loadFile';
 import toast from 'react-hot-toast';
 import styled from 'styled-components';
-import base64Encoder from 'components/base64Encoder';
-import base64Decoder from 'components/base64Decoder';
 import SvgShare from 'icons/SvgShare';
 import SvgTrash from 'icons/SvgTrash';
 import SvgInfo from 'icons/SvgInfo';
-import HelmetTemplate from 'components/HelmetTemplate';
-import getThisUrl from 'components/getThisUrl';
+import SvgDoubleDownArrow from 'icons/SvgDoubleDownArrow';
+import FixedFooterButton from 'components/FixedFooterButton';
+import ImageScreen from 'components/ImageScreen';
 
 const Viewer = () => {
   const [searchParams] = useSearchParams();
-  const fileRefId = searchParams.get('id'); // ?id=
-  const name = searchParams.get('name'); // &name=
+  const fileRefId = searchParams.get('i'); // ?id=
+  const name = searchParams.get('n'); // &name=
   const isName = useRef(name != null ? true : false);
   const isParams = fileRefId === null || fileRefId === '' ? false : true; // blank value는 ?=로 접근될때 발생됨
   const [fileUrl, setFileUrl] = useState('');
@@ -32,6 +33,7 @@ const Viewer = () => {
     title: 'Images shared on Sajin',
     desc: 'This link is a link to a photo shared on Sajin, Click this link to view photos shared with Sajin',
   });
+  const imageRef = useRef(null);
 
   useEffect(() => {
     const getFileUrl = async () => {
@@ -72,35 +74,7 @@ const Viewer = () => {
                 title={seoContent.current.title}
                 desc={seoContent.current.desc}
               />
-              <FullSizeFrame>
-                <ButtonsWrapper>
-                  <ButtonLeftWrapper>
-                    <ButtonWrapper>
-                      <CopyButton url={thisUrl.current}>
-                        <SvgShare />
-                      </CopyButton>
-                      <TrashButton onClick={onClickDelete}>
-                        <SvgTrash />
-                      </TrashButton>
-                    </ButtonWrapper>
-                  </ButtonLeftWrapper>
-                  <ButtonRightWrapper>
-                    <InfoFrame>
-                      <InfoContent>hello</InfoContent>
-                      <InfoButton
-                        onMouseEnter={onMouseEnterInfo}
-                        onMouseLeave={onMouseLeaveInfo}
-                        onClick={onClickInfo}
-                      >
-                        <SvgInfo />
-                      </InfoButton>
-                    </InfoFrame>
-                  </ButtonRightWrapper>
-                </ButtonsWrapper>
-                <ImageWrapper>
-                  <Image src={fileUrl} />
-                </ImageWrapper>
-              </FullSizeFrame>
+              <ImageScreen src={fileUrl} />
             </>
           ) : (
             <Navigate to="/" /> // 삭제후 바로 리다렉션
@@ -116,80 +90,5 @@ const Viewer = () => {
     )
   );
 };
-const InfoFrame = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 15px;
-  z-index: 1;
-`;
-const InfoContent = styled.div`
-  font-size: 16px;
-`;
-const InfoButton = styled.div`
-  all: unset;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  background-color: #212529;
-  opacity: 0.8;
-  svg {
-    height: 42.5px;
-    width: 42.5px;
-    fill: #f1f3f5;
-  }
-`;
-const FullSizeFrame = styled.div`
-  position: relative;
-  background-color: black;
-  height: 100%;
-  width: 100%;
-`;
-const ButtonsWrapper = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-`;
-const ButtonWrapper = styled.div`
-  z-index: 1;
-`;
-const ButtonLeftWrapper = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-`;
-const ButtonRightWrapper = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-`;
-const TrashButton = styled(ViewerRoundButton)`
-  svg {
-    fill: #e03131;
-  }
-`;
-const ImageWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`;
-const Image = styled.img`
-  display: block;
-  height: 100%;
-  width: auto;
-`;
+
 export default Viewer;

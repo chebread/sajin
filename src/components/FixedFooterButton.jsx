@@ -5,22 +5,17 @@ import { useLongPress } from 'use-long-press';
 const FixedFooterButton = ({ children, onClick }) => {
   const [isOnMouseAdd, setIsOnMouseAdd] = useState(false);
   const [isOnClickAdd, setIsOnClickAdd] = useState(false);
-
   const onMouseEnterAdd = () => {
-    console.log('enter');
     setIsOnMouseAdd(true);
   };
   const onMouseLeaveAdd = () => {
-    console.log('end');
     setIsOnMouseAdd(false);
   };
   const onClickAdd = useLongPress(() => {}, {
     onStart: () => {
-      console.log('on start');
       setIsOnClickAdd(true);
     },
     onFinish: () => {
-      console.log('on end');
       setIsOnClickAdd(false);
     },
     threshold: 0,
@@ -51,7 +46,6 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 const ButtonWrapper = styled.div`
-  position: fixed;
   height: 100%;
   width: 100%;
   display: flex;
@@ -61,24 +55,26 @@ const ButtonWrapper = styled.div`
 `;
 const Button = styled.button`
   all: unset;
+  position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50%; // mobile : 100%
+  width: 50%; // mobile : clac(100% - 60px)
   height: 75px;
   border-radius: 30px;
   background-color: ${({ isOnMouse, isOnClick }) =>
     isOnMouse
       ? isOnClick
-        ? '#ced4da'
+        ? 'rgba(206, 212, 218, 0.7)'
         : 'rgba(222, 226, 230, 0.7)'
-      : 'rgba(233, 236, 239, 0.7)}'};
-  margin: 30px;
+      : 'rgba(233, 236, 239, 0.7)'};
+  backdrop-filter: blur(18.75px);
   svg {
     height: 45px;
     width: 45px;
   }
   z-index: 1;
+  margin: 30px;
 `;
 export default FixedFooterButton;

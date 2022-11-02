@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import UploadFile from 'components/UploadFile';
-import pushFile from 'components/pushFile';
-import UploadingFile from 'components/UploadingFile';
+import UploadFile from 'routes/UploadFile';
+import pushFile from 'lib/pushFile';
+import UploadingFile from 'routes/UploadingFile';
 import { Navigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import styled from 'styled-components';
 
 const Home = () => {
   const [isFile, setIsFile] = useState(false);
@@ -34,6 +33,7 @@ const Home = () => {
         }, 500);
       })
       .catch(err => {
+        console.log(err);
         setIsError(true);
       });
   };
@@ -45,10 +45,10 @@ const Home = () => {
     !isError ? (
       <UploadingFile />
     ) : (
-      <Navigate to="503" />
+      <Navigate to="/" />
     )
   ) : (
-    <Navigate to={`i?id=${fileRefId}`} /> // 로드 완료
+    <Navigate to={`i?i=${fileRefId}`} /> // 로드 완료
   );
 };
 

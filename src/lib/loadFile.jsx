@@ -1,4 +1,4 @@
-import { db, doc, getDoc } from 'components/firestore';
+import { db, doc, getDoc } from 'lib/firestore';
 
 // data 반환
 const loadFile = async ({ fileId }) => {

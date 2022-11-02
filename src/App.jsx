@@ -1,6 +1,8 @@
 import Router from 'components/Router';
 import { useRef } from 'react';
 import HelmetTemplate from 'components/HelmetTemplate';
+import FullScreen from 'components/FullScreen';
+import { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 
 const App = () => {
@@ -10,17 +12,19 @@ const App = () => {
   });
   return (
     <FullScreen>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 1500,
+        }}
+      />
       <HelmetTemplate
         title={seoContent.current.title}
         desc={seoContent.current.desc}
       />
-      <Router></Router>
+      <Router />
     </FullScreen>
   );
 };
-const FullScreen = styled.div`
-  position: relative;
-  height: 100%;
-  width: 100%;
-`;
+
 export default App;
