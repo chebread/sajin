@@ -4,10 +4,13 @@ import pushFile from 'lib/pushFile';
 import UploadingFile from 'routes/UploadingFile';
 import { Navigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useRecoilState } from 'recoil';
+import { fileDbIdRefState, fileIdRefState } from 'states/refStates';
 
 const Home = () => {
   const [isFile, setIsFile] = useState(false);
-  const [fileRefId, setFileRefId] = useState(''); // 이것은 firestore을 접근할 수 있는 id임
+  const [fileRefId, setFileRefId] = useRecoilState(fileIdRefState); // 이것은 firestore을 접근할 수 있는 id임
+  const [fileDbIdRef, setFileDbIdRef] = useRecoilState(fileDbIdRefState); // 이것은 storage를 접근할 수 있는 id임
   const [isError, setIsError] = useState(false);
 
   const onDrop = async files => {
@@ -24,6 +27,7 @@ const Home = () => {
     }
     setIsFile(true);
     // 파일이 업로드 될때까지 기다림
+    // (0): Home에서 push file 및 push db 하기
     await pushFile({ file }) // 사용자가 제공한 file의 firesotre의 id를 반환함
       .then(fileRefId => {
         // 서버에서 처리할 시간을 주고 (500초 멈춤) viewer를 출력 (파일을 로드)
@@ -41,7 +45,7 @@ const Home = () => {
     <>
       <UploadFile onDrop={onDrop} />
     </>
-  ) : fileRefId === '' ? (
+  ) : fileRefId === null ? (
     !isError ? (
       <UploadingFile />
     ) : (

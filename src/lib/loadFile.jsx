@@ -2,7 +2,8 @@ import { db, doc, getDoc } from 'lib/firestore';
 
 // data 반환
 const loadFile = async ({ fileId }) => {
-  const docSnap = await getDoc(doc(db, 'images', fileId)); // first logic
+  const docRef = doc(db, 'images', fileId);
+  const docSnap = await getDoc(docRef); // first logic
   if (docSnap.exists()) {
     const data = docSnap.data(); // doc의 data들
     return data;
