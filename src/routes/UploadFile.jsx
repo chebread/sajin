@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import SvgPlus from 'icons/SvgPlus';
 import SvgAddSajin from 'icons/SvgAddSajin';
-import FixedFooterButton from 'components/FixedFooterButton';
+import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
 
 const UploadFile = ({ onDrop }) => {
@@ -34,9 +34,9 @@ const UploadFile = ({ onDrop }) => {
             )}
           </DropZone>
           {!isDragActive ? (
-            <FixedFooterButton onClick={open}>
+            <FooterButton onClick={open}>
               <SvgPlus />
-            </FixedFooterButton>
+            </FooterButton>
           ) : (
             ''
           )}

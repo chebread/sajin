@@ -16,7 +16,6 @@ import SvgShare from 'icons/SvgShare';
 import SvgTrash from 'icons/SvgTrash';
 import SvgInfo from 'icons/SvgInfo';
 import SvgDoubleDownArrow from 'icons/SvgDoubleDownArrow';
-import FixedFooterButton from 'components/FixedFooterButton';
 import SvgIcon from 'icons/SvgIcon';
 
 const Viewer = () => {
@@ -52,6 +51,9 @@ const Viewer = () => {
     setIsFileDeleted(true);
     toast.success('This file has been deleted');
   };
+  const onCopy = () => {
+    toast.success('Copied link to this file');
+  };
   // const onMouseEnterInfo = () => {
   //   setIsOnMouse(true);
   //   console.log('enter');
@@ -64,9 +66,6 @@ const Viewer = () => {
   //   console.log('click');
   //   setIsOnClickInfo(true);
   // };
-  const onCopy = () => {
-    toast.success('Copied link to this file');
-  };
   return (
     // try..catch 로직 이전에서는 모두 blank 화면이 출력되며, try...catch 로직 실행 이후 로드 실패 혹은 viewer 화면이 출려된다
     isParams ? (
@@ -79,20 +78,6 @@ const Viewer = () => {
                 desc={seoContent.current.desc}
               />
               <ImageScreen src={fileUrl} />
-              <Wrapper>
-                <BtnWrapper>
-                  <BtnWrapper2>
-                    <CopyToClipboard text={thisUrl.current} onCopy={onCopy}>
-                      <Button>
-                        <SvgShare />
-                      </Button>
-                    </CopyToClipboard>
-                    <Button onClick={onClickDelete}>
-                      <SvgTrash />
-                    </Button>
-                  </BtnWrapper2>
-                </BtnWrapper>
-              </Wrapper>
             </>
           ) : (
             <Navigate to="/" /> // 삭제후 바로 리다렉션
@@ -108,12 +93,28 @@ const Viewer = () => {
     )
   );
 };
+{
+  /* <Wrapper>
+  <FooterWrapper>
+    <ButtonWrapper>
+      <CopyToClipboard text={thisUrl.current} onCopy={onCopy}>
+        <Button>
+          <SvgShare />
+        </Button>
+      </CopyToClipboard>
+      <TrashButton onClick={onClickDelete}>
+        <SvgTrash />
+      </TrashButton>
+    </ButtonWrapper>
+  </FooterWrapper>
+</Wrapper>; */
+}
 const Wrapper = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
 `;
-const BtnWrapper = styled.div`
+const FooterWrapper = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
@@ -121,12 +122,12 @@ const BtnWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-const BtnWrapper2 = styled.div`
+const ButtonWrapper = styled.div`
   position: fixed;
   width: 50%;
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   overflow-x: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -142,22 +143,28 @@ const Button = styled.button`
   min-height: 75px;
   min-width: 100%; // min-width시 꽉차게 된다!
   border-radius: 30px;
-  background-color: rgba(233, 236, 239, 0.7);
+  background-color: rgba(22, 19, 14, 0.7);
   &:hover {
-    background-color: rgba(222, 226, 230, 0.7);
+    background-color: rgba(33, 29, 25, 0.7);
   }
   &:active {
-    background-color: rgba(206, 212, 218, 0.7);
+    background-color: rgba(49, 43, 37, 0.7);
   }
   backdrop-filter: blur(18.75px);
   svg {
     height: 45px;
     width: 45px;
+    fill: rgb(255, 255, 255);
   }
-  margin: 0 30px 0 0;
+  margin: 0 30px 15px 0;
   &:last-child {
     margin: 0;
   }
   z-index: 1;
+`;
+const TrashButton = styled(Button)`
+  svg {
+    fill: rgb(224, 49, 49);
+  }
 `;
 export default Viewer;

@@ -1,4 +1,4 @@
-import FixedFooterButton from 'components/FixedFooterButton';
+import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
 import HelmetTemplate from 'components/HelmetTemplate';
 import SvgError from 'icons/SvgError';
@@ -30,9 +30,9 @@ const NotLoadedFile = () => {
           <SvgError />
         </SvgWrapper>
       </CenterScreen>
-      <FixedFooterButton onClick={onClickRedirect}>
+      <FooterButton onClick={onClickRedirect}>
         <SvgHome />
-      </FixedFooterButton>
+      </FooterButton>
     </>
   );
 };

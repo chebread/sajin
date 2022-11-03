@@ -1,4 +1,4 @@
-import FixedFooterButton from 'components/FixedFooterButton';
+import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
 import SvgBigXMark from 'icons/SvgBoldXMark';
 import SvgLoading from 'icons/SvgLoading';
@@ -18,9 +18,9 @@ const UploadingFile = () => {
           </SvgWrapper>
         </Loading>
       </CenterScreen>
-      <FixedFooterButton onClick={onClickCancle}>
+      <FooterButton onClick={onClickCancle}>
         <SvgBigXMark />
-      </FixedFooterButton>
+      </FooterButton>
     </>
   );
 };

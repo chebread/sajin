@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FixedFooterButton = ({ children, onClick }) => {
+const FooterButton = ({ children, onClick }) => {
   return (
     <Wrapper>
       <ButtonWrapper>
@@ -29,8 +29,8 @@ const Button = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50%; // mobile : clac(100% - 60px)
-  height: 75px;
+  min-width: 50%; // mobile : clac(100% - 60px)
+  min-height: 75px;
   border-radius: 30px;
   background-color: rgba(233, 236, 239, 0.7);
   &:hover {
@@ -47,4 +47,4 @@ const Button = styled.button`
   z-index: 1;
   margin: 30px;
 `;
-export default FixedFooterButton;
+export default FooterButton;
