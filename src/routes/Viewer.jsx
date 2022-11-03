@@ -28,6 +28,8 @@ const Viewer = () => {
   const [fileUrl, setFileUrl] = useState('');
   const [notLoaded, setNotLoaded] = useState(false);
   const [isFileDeleted, setIsFileDeleted] = useState(false);
+  // const [isOnMouseInfo, setIsOnMouse] = useState(false);
+  // const [isOnClickInfo, setIsOnClickInfo] = useState(false);
   const thisUrl = useRef(getThisUrl());
   const seoContent = useRef({
     title: 'Images shared on Sajin',
@@ -50,18 +52,18 @@ const Viewer = () => {
     setIsFileDeleted(true);
     toast.success('This file has been deleted');
   };
-  const onMouseEnterInfo = () => {
-    setIsOnMouse(true);
-    console.log('enter');
-  };
-  const onMouseLeaveInfo = () => {
-    setIsOnMouse(false);
-    console.log('leave');
-  };
-  const onClickInfo = () => {
-    console.log('click');
-    setIsOnClickInfo(true);
-  };
+  // const onMouseEnterInfo = () => {
+  //   setIsOnMouse(true);
+  //   console.log('enter');
+  // };
+  // const onMouseLeaveInfo = () => {
+  //   setIsOnMouse(false);
+  //   console.log('leave');
+  // };
+  // const onClickInfo = () => {
+  //   console.log('click');
+  //   setIsOnClickInfo(true);
+  // };
   const onCopy = () => {
     toast.success('Copied link to this file');
   };
@@ -129,6 +131,7 @@ const BtnWrapper2 = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  margin: 30px;
 `;
 const Button = styled.button`
   all: unset;
@@ -136,23 +139,24 @@ const Button = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  min-width: 100%; // mobile : clac(100% - 60px)
-  height: 75px;
+  min-height: 75px;
+  min-width: 100%; // min-width시 꽉차게 된다!
   border-radius: 30px;
-  background-color: ${({ isOnMouse, isOnClick }) =>
-    isOnMouse
-      ? isOnClick
-        ? 'rgba(206, 212, 218, 0.7)'
-        : 'rgba(222, 226, 230, 0.7)'
-      : 'rgba(233, 236, 239, 0.7)'};
+  background-color: rgba(233, 236, 239, 0.7);
+  &:hover {
+    background-color: rgba(222, 226, 230, 0.7);
+  }
+  &:active {
+    background-color: rgba(206, 212, 218, 0.7);
+  }
   backdrop-filter: blur(18.75px);
   svg {
     height: 45px;
     width: 45px;
   }
-  margin: 0 30px 30px 0;
+  margin: 0 30px 0 0;
   &:last-child {
-    margin: 0 0 30px 0;
+    margin: 0;
   }
   z-index: 1;
 `;
