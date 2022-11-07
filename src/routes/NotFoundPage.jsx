@@ -16,7 +16,7 @@ const NotLoadedFile = () => {
   });
 
   useEffect(() => {
-    toast.error('This page cannot be found');
+    toast('This page cannot be found');
   }, []);
   const onClickRedirect = () => navigate('/');
   return (

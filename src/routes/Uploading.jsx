@@ -1,14 +1,10 @@
 import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
-import SvgBigXMark from 'icons/SvgBoldXMark';
+import SvgXMark from 'icons/SvgXMark';
 import SvgLoading from 'icons/SvgLoading';
 import styled from 'styled-components';
 
-const UploadingFile = () => {
-  const onClickCancle = () => {
-    // 파일 올리기 취소하기
-    // 만약 파일에 대한 참조나 파일 그자체에 대해 참조가 생성되었다면 올리기 취소 기능 활성화 하기
-  };
+const Uploading = ({ onClick }) => {
   return (
     <>
       <CenterScreen position="absolute">
@@ -18,8 +14,8 @@ const UploadingFile = () => {
           </SvgWrapper>
         </Loading>
       </CenterScreen>
-      <FooterButton onClick={onClickCancle}>
-        <SvgBigXMark />
+      <FooterButton onClick={onClick}>
+        <SvgXMark />
       </FooterButton>
     </>
   );
@@ -60,4 +56,4 @@ const Loading = styled.div`
     }
   }
 `;
-export default UploadingFile;
+export default Uploading;

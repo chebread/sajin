@@ -4,8 +4,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import NotLoadedFile from 'routes/NotLoadedFile';
 import NotFoundPage from 'routes/NotFoundPage';
 import ImageScreen from 'components/ImageScreen';
-import CopyButton from 'components/CopyButton';
-import ViewerRoundButton from 'components/ViewerRoundButton';
 import HelmetTemplate from 'components/HelmetTemplate';
 import getThisUrl from 'lib/getThisUrl';
 import deleteFile from 'lib/deleteFile';
@@ -14,30 +12,25 @@ import toast from 'react-hot-toast';
 import styled from 'styled-components';
 import SvgShare from 'icons/SvgShare';
 import SvgTrash from 'icons/SvgTrash';
-import SvgInfo from 'icons/SvgInfo';
-import SvgDoubleDownArrow from 'icons/SvgDoubleDownArrow';
-import SvgIcon from 'icons/SvgIcon';
+import SvgDot from 'icons/SvgDot';
 
 const Viewer = () => {
   const [searchParams] = useSearchParams();
-  const fileRefId = searchParams.get('i'); // ?id=
-  // const name = searchParams.get('n'); // &name=
-  // const isName = useRef(name != null ? true : false);
-  const isParams = fileRefId === null || fileRefId === '' ? false : true; // blank value는 ?=로 접근될때 발생됨
+  const fileId = searchParams.get('q'); // ?query=
+  const isParams = fileId === null || fileId === '' ? false : true; // blank value는 ?=로 접근될때 발생됨
   const [fileUrl, setFileUrl] = useState('');
   const [notLoaded, setNotLoaded] = useState(false);
   const [isFileDeleted, setIsFileDeleted] = useState(false);
-  // const [isOnMouseInfo, setIsOnMouse] = useState(false);
-  // const [isOnClickInfo, setIsOnClickInfo] = useState(false);
   const thisUrl = useRef(getThisUrl());
   const seoContent = useRef({
     title: 'Images shared on Sajin',
     desc: 'This link is a link to a photo shared on Sajin, Click this link to view photos shared with Sajin',
   });
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const getFileUrl = async () => {
-      const fileDb = await loadFile({ fileId: fileRefId });
+      const fileDb = await loadFile({ fileId });
       const fileUrl = fileDb.url;
       setFileUrl(fileUrl);
     };
@@ -46,26 +39,18 @@ const Viewer = () => {
     });
   }, []);
 
-  const onClickDelete = async () => {
-    await deleteFile({ fileId: fileRefId });
+  const onClickDelete = () => {
+    deleteFile({ fileId });
     setIsFileDeleted(true);
     toast.success('This file has been deleted');
   };
   const onCopy = () => {
     toast.success('Copied link to this file');
   };
-  // const onMouseEnterInfo = () => {
-  //   setIsOnMouse(true);
-  //   console.log('enter');
-  // };
-  // const onMouseLeaveInfo = () => {
-  //   setIsOnMouse(false);
-  //   console.log('leave');
-  // };
-  // const onClickInfo = () => {
-  //   console.log('click');
-  //   setIsOnClickInfo(true);
-  // };
+
+  const onScroll = e => {
+    console.log(buttonRef.current.scrollLeft, buttonRef.current.innerWidth);
+  };
   return (
     // try..catch 로직 이전에서는 모두 blank 화면이 출력되며, try...catch 로직 실행 이후 로드 실패 혹은 viewer 화면이 출려된다
     isParams ? (
@@ -78,6 +63,20 @@ const Viewer = () => {
                 desc={seoContent.current.desc}
               />
               <ImageScreen src={fileUrl} />
+              <Wrapper>
+                <FooterWrapper>
+                  <ButtonWrapper onScroll={onScroll} ref={buttonRef}>
+                    <CopyToClipboard text={thisUrl.current} onCopy={onCopy}>
+                      <Button>
+                        <SvgShare />
+                      </Button>
+                    </CopyToClipboard>
+                    <TrashButton onClick={onClickDelete}>
+                      <SvgTrash />
+                    </TrashButton>
+                  </ButtonWrapper>
+                </FooterWrapper>
+              </Wrapper>
             </>
           ) : (
             <Navigate to="/" /> // 삭제후 바로 리다렉션
@@ -93,22 +92,6 @@ const Viewer = () => {
     )
   );
 };
-{
-  /* <Wrapper>
-  <FooterWrapper>
-    <ButtonWrapper>
-      <CopyToClipboard text={thisUrl.current} onCopy={onCopy}>
-        <Button>
-          <SvgShare />
-        </Button>
-      </CopyToClipboard>
-      <TrashButton onClick={onClickDelete}>
-        <SvgTrash />
-      </TrashButton>
-    </ButtonWrapper>
-  </FooterWrapper>
-</Wrapper>; */
-}
 const Wrapper = styled.div`
   position: absolute;
   height: 100%;
@@ -124,10 +107,13 @@ const FooterWrapper = styled.div`
 `;
 const ButtonWrapper = styled.div`
   position: fixed;
-  width: 50%;
+  min-width: 50%;
+  @media (max-width: 800px) {
+    min-width: calc(100% - 60px);
+  }
   height: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   overflow-x: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -143,12 +129,12 @@ const Button = styled.button`
   min-height: 75px;
   min-width: 100%; // min-width시 꽉차게 된다!
   border-radius: 30px;
-  background-color: rgba(22, 19, 14, 0.7);
+  background-color: rgba(22, 19, 14, 65%);
   &:hover {
-    background-color: rgba(33, 29, 25, 0.7);
+    background-color: rgba(33, 29, 25, 65%);
   }
   &:active {
-    background-color: rgba(49, 43, 37, 0.7);
+    background-color: rgba(49, 43, 37, 65%);
   }
   backdrop-filter: blur(18.75px);
   svg {
@@ -156,7 +142,7 @@ const Button = styled.button`
     width: 45px;
     fill: rgb(255, 255, 255);
   }
-  margin: 0 30px 15px 0;
+  margin: 0 30px 0 0;
   &:last-child {
     margin: 0;
   }

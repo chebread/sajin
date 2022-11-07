@@ -6,7 +6,7 @@ const getFileRef = async ({ fileId }) => {
   const filename = fileDb.filename;
   // 오류 로직 필요
   // 이미지 파일 삭제
-  const fileRef = ref(storage, filename);
+  const fileRef = ref(storage, `images/${filename}`);
   return fileRef;
 };
 

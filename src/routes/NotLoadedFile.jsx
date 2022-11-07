@@ -2,7 +2,7 @@ import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
 import HelmetTemplate from 'components/HelmetTemplate';
 import SvgHome from 'icons/SvgHome';
-import SvgXMark from 'icons/SvgXMark';
+import SvgBigXMark from 'icons/SvgBigXMark';
 import { useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const NotLoadedFile = () => {
       />
       <CenterScreen position="absolute">
         <SvgWrapper>
-          <SvgXMark />
+          <SvgBigXMark />
         </SvgWrapper>
       </CenterScreen>
       <FooterButton onClick={onClickRedirect}>

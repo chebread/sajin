@@ -6,7 +6,7 @@ import SvgAddSajin from 'icons/SvgAddSajin';
 import FooterButton from 'components/FooterButton';
 import CenterScreen from 'components/CenterScreen';
 
-const UploadFile = ({ onDrop }) => {
+const HomeScreen = ({ onDrop }) => {
   const accept = useRef({
     'image/*': [], // 이미지 파일 전체를 받음
   });
@@ -76,4 +76,4 @@ const DropGuide = styled.div`
     width: 200px;
   }
 `;
-export default UploadFile;
+export default HomeScreen;
