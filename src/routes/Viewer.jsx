@@ -49,7 +49,7 @@ const Viewer = () => {
   };
 
   const onScroll = e => {
-    console.log(buttonRef.current.scrollLeft, buttonRef.current.innerWidth);
+    // console.log(buttonRef.current.scrollLeft, buttonRef.current.innerWidth);
   };
   return (
     // try..catch 로직 이전에서는 모두 blank 화면이 출력되며, try...catch 로직 실행 이후 로드 실패 혹은 viewer 화면이 출려된다

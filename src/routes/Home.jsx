@@ -4,6 +4,15 @@ import Uploading from 'routes/Uploading';
 import { Navigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import uploadFile from 'lib/uploadFile';
+// import hashConstructor from 'lib/hashConstructor';
+// import {
+//   storage,
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+//   uploadBytesResumable,
+// } from 'lib/storage';
+// import { db, setDoc, doc } from 'lib/firestore';
 
 const Home = () => {
   const [isFile, setIsFile] = useState(false);
@@ -23,7 +32,23 @@ const Home = () => {
       return;
     }
     setIsFile(true);
-    console.log(1);
+    // upload
+    // const fileRefId = hashConstructor();
+    // const docRefId = hashConstructor();
+    // const fileRef = ref(storage, `images/${fileRefId}`);
+    // const docRef = doc(db, 'images', `${docRefId}`);
+    // const metadata = {
+    //   contentType: null,
+    // };
+    // // await uploadBytes(fileRef, file, metadata);
+    // const uploadTask = await uploadBytesResumable(fileRef, file, metadata);
+    // console.log(uploadTask);
+
+    // await setDoc(docRef, {
+    //   url: await getDownloadURL(fileRef),
+    //   filename: fileRefId,
+    // });
+    // setFileId(docRefId);
     await uploadFile({ file })
       .then(fileId => {
         setFileId(fileId);

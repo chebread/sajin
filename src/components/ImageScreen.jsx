@@ -14,7 +14,7 @@ const ImageWrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
 `;
 const Image = styled.img`
   display: block;
