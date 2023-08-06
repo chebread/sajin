@@ -28,6 +28,7 @@ const targetDom = document.getElementById('root');
 //     );
 //   });
 // } else {
+console.log(1);
 const root = ReactDOM.createRoot(targetDom);
 root.render(
   <HelmetProvider>

@@ -113,7 +113,7 @@ const ButtonWrapper = styled.div`
   }
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   overflow-x: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -142,10 +142,11 @@ const Button = styled.button`
     width: 45px;
     fill: rgb(255, 255, 255);
   }
-  margin: 0 30px 0 0;
+  /* margin: 0 30px 0 0;
   &:last-child {
     margin: 0;
-  }
+  } */
+  margin: 0 0 15px 0;
   z-index: 1;
 `;
 const TrashButton = styled(Button)`

@@ -56,7 +56,8 @@ const Home = () => {
         // setTimeOut ... 500ms
       })
       .catch(() => {
-        setIsError(true);
+        console.log('error');
+        toast.success('File has erroed');
       });
   };
   const onClickCancle = () => {

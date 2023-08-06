@@ -11,7 +11,7 @@ const uploadFile = async ({ file }) => {
     contentType: null,
   };
   await uploadBytes(fileRef, file, metadata);
-  await setDoc(docRef, {
+  await setDoc(docRe, {
     url: await getDownloadURL(fileRef),
     filename: fileRefId,
   });
